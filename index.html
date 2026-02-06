@@ -3,47 +3,59 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Valentine — Minimal Static Site</title>
+    <title>Will You Be My Valentine?</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="page">
-      <section class="hero">
-        <p class="tag">Minimal static site</p>
-        <h1>Valentine</h1>
-        <p class="lede">
-          A small, fast, and simple static page starter with clean typography
-          and a calm gradient background.
-        </p>
-        <div class="cta">
-          <a class="button" href="#details">Explore</a>
-          <span class="note">Pure HTML + CSS</span>
-        </div>
-      </section>
+    <main class="stage">
+      <img
+        class="letter"
+        src="Gifs/Letter.gif"
+        alt="Animated letter with hearts"
+      />
+      <h1>Will you be my Valentine?</h1>
 
-      <section id="details" class="details">
-        <div class="card">
-          <h2>What is this?</h2>
-          <p>
-            A minimal site scaffold built for clarity. It uses a single HTML
-            file and a small, focused stylesheet.
-          </p>
-        </div>
-        <div class="card">
-          <h2>Why so small?</h2>
-          <p>
-            Simplicity makes maintenance easy and keeps load times near
-            instant.
-          </p>
-        </div>
-        <div class="card">
-          <h2>Next steps</h2>
-          <p>
-            Replace this copy, adjust the palette, and add sections as you
-            need.
-          </p>
-        </div>
-      </section>
+      <div class="buttons">
+        <button class="btn yes" id="yes-button" type="button">Yes</button>
+      </div>
+
+      <button class="btn no" id="no-button" type="button">No</button>
     </main>
+
+    <script>
+      const noButton = document.getElementById("no-button");
+      const stage = document.querySelector(".stage");
+
+      const moveNoButton = () => {
+        const stageRect = stage.getBoundingClientRect();
+        const buttonRect = noButton.getBoundingClientRect();
+        const padding = 16;
+
+        const maxX = Math.max(0, stageRect.width - buttonRect.width - padding * 2);
+        const maxY = Math.max(
+          0,
+          stageRect.height - buttonRect.height - padding * 2
+        );
+
+        const x = padding + Math.random() * maxX;
+        const y = padding + Math.random() * maxY;
+
+        noButton.style.transform = "translate(0, 0)";
+        noButton.style.left = `${x}px`;
+        noButton.style.top = `${y}px`;
+      };
+
+      const setInitialPosition = () => {
+        const stageRect = stage.getBoundingClientRect();
+        noButton.style.transform = "translate(0, 0)";
+        noButton.style.left = `${stageRect.width * 0.56}px`;
+        noButton.style.top = `${stageRect.height * 0.58}px`;
+      };
+
+      window.addEventListener("load", setInitialPosition);
+      window.addEventListener("resize", setInitialPosition);
+      noButton.addEventListener("mouseenter", moveNoButton);
+      noButton.addEventListener("touchstart", moveNoButton, { passive: true });
+    </script>
   </body>
 </html>
