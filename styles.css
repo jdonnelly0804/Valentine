@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --text: #1a1a1a;
   --yes: #1f8f43;
   --yes-dark: #157036;
@@ -34,6 +34,12 @@ body {
 .letter {
   width: min(240px, 70vw);
   height: auto;
+  opacity: 1;
+  transition: opacity 220ms ease;
+}
+
+.letter.swapping {
+  opacity: 0;
 }
 
 h1 {
@@ -59,12 +65,17 @@ h1 {
   color: #ffffff;
   cursor: pointer;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
-  transition: transform 120ms ease, box-shadow 120ms ease;
+  transition: transform 120ms ease, box-shadow 120ms ease, opacity 260ms ease;
 }
 
 .btn:focus-visible {
   outline: 2px solid #000000;
   outline-offset: 3px;
+}
+
+.btn.fade-out {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .btn.yes {
@@ -78,15 +89,15 @@ h1 {
 
 .btn.no {
   background: var(--no);
-  position: absolute;
-  left: 56%;
-  top: 58%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
 }
 
 .btn.no:hover {
   background: var(--no-dark);
+}
+
+.btn.no.floating {
+  position: absolute;
+  z-index: 2;
 }
 
 @media (max-width: 480px) {

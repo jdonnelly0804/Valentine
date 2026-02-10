@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -10,52 +10,66 @@
     <main class="stage">
       <img
         class="letter"
+        id="letter-gif"
         src="Gifs/Letter.gif"
         alt="Animated letter with hearts"
       />
       <h1>Will you be my Valentine?</h1>
 
-      <div class="buttons">
+      <div class="buttons" id="buttons-row">
         <button class="btn yes" id="yes-button" type="button">Yes</button>
+        <button class="btn no" id="no-button" type="button">No</button>
       </div>
-
-      <button class="btn no" id="no-button" type="button">No</button>
     </main>
 
     <script>
-      const noButton = document.getElementById("no-button");
       const stage = document.querySelector(".stage");
+      const letter = document.getElementById("letter-gif");
+      const yesButton = document.getElementById("yes-button");
+      const noButton = document.getElementById("no-button");
+
+      let accepted = false;
 
       const moveNoButton = () => {
+        if (accepted) {
+          return;
+        }
+
         const stageRect = stage.getBoundingClientRect();
         const buttonRect = noButton.getBoundingClientRect();
         const padding = 16;
 
         const maxX = Math.max(0, stageRect.width - buttonRect.width - padding * 2);
-        const maxY = Math.max(
-          0,
-          stageRect.height - buttonRect.height - padding * 2
-        );
+        const maxY = Math.max(0, stageRect.height - buttonRect.height - padding * 2);
 
         const x = padding + Math.random() * maxX;
         const y = padding + Math.random() * maxY;
 
-        noButton.style.transform = "translate(0, 0)";
+        noButton.classList.add("floating");
         noButton.style.left = `${x}px`;
         noButton.style.top = `${y}px`;
       };
 
-      const setInitialPosition = () => {
-        const stageRect = stage.getBoundingClientRect();
-        noButton.style.transform = "translate(0, 0)";
-        noButton.style.left = `${stageRect.width * 0.56}px`;
-        noButton.style.top = `${stageRect.height * 0.58}px`;
+      const acceptValentine = () => {
+        if (accepted) {
+          return;
+        }
+
+        accepted = true;
+        yesButton.classList.add("fade-out");
+        noButton.classList.add("fade-out");
+        letter.classList.add("swapping");
+
+        window.setTimeout(() => {
+          letter.src = "Gifs/Seal.gif";
+          letter.alt = "Animated seal with hearts";
+          letter.classList.remove("swapping");
+        }, 220);
       };
 
-      window.addEventListener("load", setInitialPosition);
-      window.addEventListener("resize", setInitialPosition);
       noButton.addEventListener("mouseenter", moveNoButton);
       noButton.addEventListener("touchstart", moveNoButton, { passive: true });
+      yesButton.addEventListener("click", acceptValentine);
     </script>
   </body>
 </html>
