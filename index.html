@@ -14,7 +14,12 @@
         src="Gifs/Letter.gif"
         alt="Animated letter with hearts"
       />
-      <h1>Will you be my Valentine?</h1>
+      <h1 id="main-title">Will you be my Valentine?</h1>
+      <p class="menu-link" id="menu-link" hidden>
+        <a href="https://theboweryhotel.com/dinner-menu/" target="_blank" rel="noopener noreferrer"
+          >https://theboweryhotel.com/dinner-menu/</a
+        >
+      </p>
 
       <div class="buttons" id="buttons-row">
         <button class="btn yes" id="yes-button" type="button">Yes</button>
@@ -25,6 +30,8 @@
     <script>
       const stage = document.querySelector(".stage");
       const letter = document.getElementById("letter-gif");
+      const title = document.getElementById("main-title");
+      const menuLink = document.getElementById("menu-link");
       const yesButton = document.getElementById("yes-button");
       const noButton = document.getElementById("no-button");
 
@@ -58,6 +65,8 @@
         accepted = true;
         yesButton.classList.add("fade-out");
         noButton.classList.add("fade-out");
+        title.textContent = "Dinner @ Gemma 4:30";
+        menuLink.hidden = false;
         letter.classList.add("swapping");
 
         window.setTimeout(() => {
